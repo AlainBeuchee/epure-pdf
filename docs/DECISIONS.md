@@ -1168,3 +1168,27 @@ Facile : un test de la limite pourra être fait plus tard, avec un jeu de fichie
 ## Décisions en attente
 
 La liste à jour des points `[À DÉCIDER]` est tenue dans `SPEC.md` §9.1, avec le jalon auquel chacun doit être tranché. Le premier à trancher est le **moteur de rendu** (`SPEC.md` §6), à l'issue du prototype comparatif du jalon 1 (session 1a).
+
+---
+
+## DEC-0045 — Constat : « Toujours » dépend de la source du fichier
+
+- Date : 12/11/2026
+- Statut : Constat (aucune modification du code ni du manifeste)
+- Jalon : 2 (session 2a), F-1.2 à F-1.4
+- Exigences concernées : F-1.2, F-1.3, F-1.4, DEC-0034
+
+**Constats (appareil SM-A536B, Android 16, One UI 8)**
+- Épure PDF apparaît dans « Ouvrir avec » pour les PDF. Elle n'apparaît pas dans « Applications par défaut » : Android n'y propose aucun réglage par type de fichier.
+- Le choix « Toujours » ne s'applique pas à tous les PDF. Il dépend de l'application qui envoie le fichier : deux fichiers ouverts depuis la même source (« Mes fichiers ») s'ouvrent dans Épure PDF après le choix, un fichier téléchargé dans un autre dossier ou une pièce jointe Gmail peuvent s'ouvrir dans un autre gestionnaire.
+- Pièce jointe Gmail : après le choix « Toujours » sur Épure PDF, le test est validé par le porteur.
+
+**Décision**
+- Aucun changement de code ni de manifeste. Le filtre `VIEW` (`application/pdf`, schéma `content`) reste celui de F-1.2.
+- Le comportement de « Toujours » est un réglage du système, hors de portée de l'app. Il est documenté ici pour les tests futurs.
+
+**Non vérifié**
+- Le schéma `file` n'est pas déclaré. Si un test futur montre qu'une source envoie un `file://`, la question de l'ajouter sera à trancher dans une nouvelle entrée (F-1.2 et DEC-0034 concernés).
+
+**Réversibilité**
+Totale : aucun code modifié.
